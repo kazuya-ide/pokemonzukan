@@ -3,7 +3,7 @@ export const fetchPokemonData = async (id: number) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       return data;

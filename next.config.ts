@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig = {
+    images: {
+        domains: ["raw.githubusercontent.com"],
+    }
+} as const satisfies NextConfig;
 
-export default nextConfig;
+module.exports = nextConfig;
