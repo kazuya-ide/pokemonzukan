@@ -28,10 +28,10 @@ const handleSearch = async () => {
     const data = await fetchPokemonData(id);
     setPokemonData(data);
     setError(null);
-  } catch (e: any) {
-    setError(`エラーが発生しました: ${e.message}`);
-      setPokemonData(null);
-  }
+} catch (e: unknown) {
+    setError(`エラーが発生しました: ${String(e)}`);
+    setPokemonData(null);
+}
 };
 
 return (
