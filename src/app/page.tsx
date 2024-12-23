@@ -6,8 +6,8 @@ import { fetchPokemonData } from "../utils/api";
 import PokemonCard from "./components/PokemonCard";
 
 export default function Home() {
-  const [pokemonId, setPokemonId] = useState<string>(""); // 初期値を空文字にする
-  const [pokemonData, setPokemonData] = useState<any>(null);
+  const [pokemonId, setPokemonId] = useState<string>("");
+  const [pokemonData, setPokemonData] = useState<Record<string, any> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
@@ -15,13 +15,11 @@ export default function Home() {
       setError("図鑑番号を入力してください。");
       return;
     }
-    
-    // pokemonIdが空文字ではない場合はNumber()で変換する
-     const id = Number(pokemonId)
 
+     const id = Number(pokemonId)
     try {
       const data = await fetchPokemonData(id);
-      setPokemonData(data);
+        setPokemonData(data);
       setError(null);
     } catch (e: any) {
       setError(`エラーが発生しました: ${e.message}`);
@@ -37,8 +35,8 @@ export default function Home() {
           type="number"
           placeholder="図鑑番号を入力"
           className="border rounded px-3 py-2"
-          value={pokemonId} // valueは string になる
-          onChange={(e) => setPokemonId(e.target.value)} // onChangeで変更される値も string になる
+          value={pokemonId}
+          onChange={(e) => setPokemonId(e.target.value)}
         />
         <button
           onClick={handleSearch}
@@ -49,10 +47,12 @@ export default function Home() {
       </div>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {pokemonData && (
-        <PokemonCard
-          name={pokemonData.name}
-          imageUrl={pokemonData.sprites.front_default}
-        />
+          <PokemonCard
+            name={pokemonData.name}
+            imageUrl={pokemonData.sprites.front_default}
+            imageWidth={pokemonData.sprites.front_default.width}
+            imageHeight={pokemonData.sprites.front_default.height}
+          />
       )}
     </main>
   );
