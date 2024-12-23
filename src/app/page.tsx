@@ -11,7 +11,7 @@ sprites: {
     front_default: string;
  };
   id: number;
-}
+ }
 export default function Home() {
 const [pokemonId, setPokemonId] = useState<string>("");
 const [pokemonData, setPokemonData] = useState<Pokemon | null>(null);
@@ -53,13 +53,14 @@ return (
       </button>
     </div>
     {error && <p className="text-red-500 mb-4">{error}</p>}
-    {pokemonData && (
+    {pokemonData && pokemonData.sprites && ( // `pokemonData` が `null` ではないか、spritesが存在するか確認
         <PokemonCard
-        name={pokemonData.name}
-        imageUrl={pokemonData.sprites.front_default}
-        imageWidth={150}
-        imageHeight={150}
-      />
+          name={pokemonData.name}
+          imageUrl={pokemonData.sprites.front_default}
+          imageWidth={150}
+          imageHeight={150}
+          
+        />
     )}
   </main>
 );
